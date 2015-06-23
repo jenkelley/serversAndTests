@@ -12,6 +12,7 @@
 
 /// Completion block for register and login actions. userInfo is set on success, nil on failure.
 typedef void(^UserInfoCompletionBlock)(NSDictionary *userInfo, NSError *error);
+typedef void(^ProductCompletionBlock)(NSDictionary *produts, NSError *error);
 
 /// Completion block for API endpoints that don't return any response body.
 typedef void(^NoResponseNetworkCompletionBlock)(NSError *error);
@@ -36,27 +37,14 @@ FOUNDATION_EXPORT const struct NetworkAPIUtilityErrorInfoKeys
 
 + (instancetype)sharedUtility;
 
-- (void)registerWithEmailAddress:(NSString *)email
-                        password:(NSString *)password
-                      completion:(UserInfoCompletionBlock)completion;
+- (NSURLSessionDataTask *)getStockOfAllProducts:(ProductCompletionBlock)completion;
+- (NSURLSessionDataTask *)getStockOfOneProduct:(NSString *)product withCompletion:(ProductCompletionBlock)completion;
+- (NSURLSessionDataTask *)restockSpecificProduct:(NSString *)product withQuantity:(NSNumber *)amount withCompletion:(ProductCompletionBlock)completion;
+- (NSURLSessionDataTask *)restockMultipleProducts:(NSString *)product withQuantity:(NSString *)amount withCompletion:(ProductCompletionBlock)completion;
+- (NSURLSessionDataTask *)removeAllOfASpecificProduct:(NSString *)product withCompletion:(ProductCompletionBlock)completion;
+- (NSURLSessionDataTask *)purchaseSpecificProduct:(NSString *)product withQuantity:(NSNumber *)amount withCompletion:(ProductCompletionBlock)completion;
+- (NSURLSessionDataTask *)purchaseMultipleProducts:(NSString *)product withQuantity:(NSString *)amount withCompletion:(ProductCompletionBlock)completion;
+- (NSURLSessionDataTask *)addNewProduct:(NSString *)product withQuantity:(NSNumber *)amount withCompletion:(ProductCompletionBlock)completion;
 
-- (void)loginWithEmailAddress:(NSString *)email
-                     password:(NSString *)password
-                   completion:(UserInfoCompletionBlock)completion;
-
-- (void)loginOrRegisterFacebookUserID:(NSString *)facebookID
-                        facebookToken:(NSString *)facebookToken
-                           completion:(UserInfoCompletionBlock)completion;
-
-- (void)fetchCurrentUserWithCompletion:(UserInfoCompletionBlock)completion;
-
-- (void)resetPasswordForEmail:(NSString *)email
-                   completion:(NoResponseNetworkCompletionBlock)completion;
-
-- (void)registerForNotificationsWithDeviceToken:(NSData *)deviceToken
-                                     completion:(NoResponseNetworkCompletionBlock)completion;
-
-- (void)getUserWithID:(NSInteger)userID
-           completion:(UserInfoCompletionBlock)completion;
 
 @end

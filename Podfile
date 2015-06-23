@@ -10,7 +10,7 @@ pod 'XcodeCoverage', '~>1.2'
 
 target 'groceryStoreAppTests', :exclusive => true do
     # Put testing-only pods here
-    # pod 'VOKMockUrlProtocol'
+     pod 'VOKMockUrlProtocol'
 end
 
 target 'groceryStoreAppUITests', :exclusive => true do
